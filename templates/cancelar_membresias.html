@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancelar Membresías</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-5xl">
+      <h2 class="text-2xl font-bold mb-4 text-center">Cancelar Membresías Activas</h2>
+      <table class="bg-gray-700 text-gray-300 rounded w-full mb-4">
+        <thead>
+          <tr>
+            <th>Nombre del Miembro</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for membresia in membresias %}
+          <tr>
+            <td>{{ membresia.nombre }}</td>
+            <td>{{ membresia.fecha_inicio }}</td>
+            <td>{{ membresia.fecha_fin if membresia.fecha_fin else 'Indefinido' }}</td>
+            <td>
+              <form action="{{ url_for('cancelar_membresia', id_miembro_membresia=membresia.id_miembro_membresia) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este miembro?')">
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                  Cancelar
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="flex justify-center mt-4">
+        <a href="{{ url_for('menu') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Regresar al Menú
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

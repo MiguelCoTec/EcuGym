@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcuGym - Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex items-center justify-center h-screen">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-4">Bienvenido {{ nombre }} </h2>
+      <div class="space-y-4">
+        
+        {% if rol == 'Recepcionista' %}
+          <a href="/nuevo_miembro" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Nuevo Miembro
+          </a>
+          <a href="/administrar_miembros" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Actualizar membresía del miembro 
+          </a>
+          <a href="/membresias" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Membresías
+          </a>
+        {% endif %}
+
+        <a href="/nueva_venta" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+          Nueva venta
+        </a>
+        <a href="/inventario" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+          Consultar Inventario
+        </a>
+        <a href="/cancelar_membresias" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+          Cancelar Membresía de miembros
+        </a>
+        {% if rol == 'Administrador' %}
+          <a href="/agregar_usuario" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Administrar Usuarios
+          </a>
+          <a href="/administrar_miembros" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Administrar miembros
+          </a>
+          <a href="/administrar_membresias" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Administración de membresías
+          </a>
+          <a href="/administrar_productos" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+            Administración de productos
+          </a>
+        {% endif %}
+        <a href="/cerrar_sesion" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block">
+          Cerrar sesión
+        </a>
+
+        <!-- Botón para abrir la ventana emergente -->
+        <button id="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block">
+          Simular registro de huella
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-gray-700 rounded-lg shadow-lg p-6 w-96">
+      <h2 class="text-lg font-bold mb-4">Bienvenido: Nombre Apellido</h2>
+      <p class="mb-4">Días restantes: días</p>
+      <p class="mb-4">Fecha a pagar: 01/01/2025</p>
+      <button id="closeModal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const openModal = document.getElementById('openModal');
+    const closeModal = document.getElementById('closeModal');
+    const modal = document.getElementById('modal');
+
+    openModal.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

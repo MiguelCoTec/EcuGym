@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Venta</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+    input, select, textarea {
+      background-color: #fff; /* Fondo blanco */
+      color: #000; /* Texto negro */
+      border-radius: 8px; /* Bordes redondeados */
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efecto visual al enfocar */
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4 text-center">Nueva Venta</h2>
+      <form action="/registrar_venta" method="POST" id="venta-form">
+        <div id="productos-container" class="space-y-4">
+          <div class="producto flex items-center space-x-4">
+            <div class="w-full">
+              <label class="block text-white-400 font-bold mb-2">Producto</label>
+              <select name="producto[]" class="producto-select w-full py-2 px-3 leading-tight focus:shadow-outline">
+                <option value="" data-precio="0">Selecciona un producto</option>
+                {% for producto in productos %}
+                <option value="{{ producto.id }}" data-precio="{{ producto.precio }}">{{ producto.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="w-1/4">
+              <label class="block text-white-400 font-bold mb-2">Cantidad</label>
+              <input type="number" name="cantidad[]" min="1" class="cantidad-input w-full py-2 px-3 leading-tight focus:shadow-outline" required>
+            </div>
+            <div class="w-1/4">
+              <label class="block text-white-400 font-bold mb-2">Precio Unitario</label>
+              <input type="text" name="precio_unitario[]" class="precio-unitario w-full py-2 px-3 leading-tight focus:shadow-outline" readonly>
+            </div>
+            <div class="w-1/4">
+              <label class="block text-white-400 font-bold mb-2">Subtotal</label>
+              <input type="text" name="subtotal[]" class="subtotal w-full py-2 px-3 leading-tight focus:shadow-outline" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-right">
+          <button type="button" id="agregar-producto" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            Agregar Producto
+          </button>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-white-400 font-bold mb-2">Comentarios</label>
+          <textarea name="comentarios" rows="4" class="w-full py-2 px-3 leading-tight focus:shadow-outline"></textarea>
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-white-400 font-bold mb-2">Total</label>
+          <input type="text" name="total" id="total" class="w-full py-2 px-3 leading-tight focus:shadow-outline" readonly>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Registrar Venta
+          </button>
+        </div>
+      </form>
+      <div class="flex justify-center mt-4">
+        <a href="{{ url_for('menu') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Regresar al Menú
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const productosContainer = document.getElementById('productos-container');
+    const agregarProducto = document.getElementById('agregar-producto');
+    const totalInput = document.getElementById('total');
+
+    const actualizarTotales = () => {
+      let total = 0;
+      document.querySelectorAll('.producto').forEach((producto) => {
+        const cantidad = parseFloat(producto.querySelector('.cantidad-input').value) || 0;
+        const precio = parseFloat(producto.querySelector('.producto-select').selectedOptions[0].dataset.precio) || 0;
+        const subtotal = cantidad * precio;
+        producto.querySelector('.precio-unitario').value = precio.toFixed(2);
+        producto.querySelector('.subtotal').value = subtotal.toFixed(2);
+        total += subtotal;
+      });
+      totalInput.value = total.toFixed(2);
+    };
+
+    agregarProducto.addEventListener('click', () => {
+      const nuevoProducto = productosContainer.children[0].cloneNode(true);
+      nuevoProducto.querySelector('.cantidad-input').value = '';
+      nuevoProducto.querySelector('.precio-unitario').value = '';
+      nuevoProducto.querySelector('.subtotal').value = '';
+      productosContainer.appendChild(nuevoProducto);
+      nuevoProducto.querySelectorAll('select, input').forEach((input) =>
+        input.addEventListener('input', actualizarTotales)
+      );
+    });
+
+    productosContainer.addEventListener('input', actualizarTotales);
+  </script>
+</body>
+</html>

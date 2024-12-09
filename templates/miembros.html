@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miembros</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-6xl">
+      <h2 class="text-2xl font-bold mb-4 text-center">Miembros</h2>
+
+      <!-- Tabla de Miembros -->
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-left text-gray-300">
+          <thead>
+            <tr class="bg-gray-700">
+              <th class="px-4 py-2">Nombre</th>
+              <th class="px-4 py-2">Apellido</th>
+              <th class="px-4 py-2">Correo</th>
+              <th class="px-4 py-2">Teléfono</th>
+              <th class="px-4 py-2">Fecha Registro</th>
+              <th class="px-4 py-2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for miembro in miembros %}
+            <tr class="bg-gray-600 hover:bg-gray-500">
+              <td class="px-4 py-2">{{ miembro[1] }}</td>
+              <td class="px-4 py-2">{{ miembro[2] }}</td>
+              <td class="px-4 py-2">{{ miembro[3] }}</td>
+              <td class="px-4 py-2">{{ miembro[4] }}</td>
+              <td class="px-4 py-2">{{ miembro[5] }}</td>
+              <td class="px-4 py-2 flex space-x-2">
+                <a href="{{ url_for('actualizar_miembro_membresia', miembro_id=miembro[0]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Actualizar Membresía</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="flex justify-end mt-4">
+        <a href="{{ url_for('menu') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Regresar al Menú
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

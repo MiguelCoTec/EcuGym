@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Miembro</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4 text-center">Editar Miembro</h2>
+
+      <form action="{{ url_for('editar_miembro', miembro_id=miembro_id) }}" method="POST">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="nombre" class="block text-gray-300 text-sm font-bold mb-2">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ miembro[0] }}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+          </div>
+          <div>
+            <label for="apellido" class="block text-gray-300 text-sm font-bold mb-2">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" value="{{ miembro[1] }}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+          </div>
+          <div>
+            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" value="{{ miembro[2] }}"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+          </div>
+          <div>
+            <label for="telefono" class="block text-gray-300 text-sm font-bold mb-2">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" value="{{ miembro[3] }}"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+          </div>
+          <div>
+            <label for="fecha_registro" class="block text-gray-300 text-sm font-bold mb-2">Fecha de Registro:</label>
+            <input type="text" id="fecha_registro" name="fecha_registro" value="{{ miembro[4] }}" readonly
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-500">
+          </div>
+        </div>
+        <div class="flex justify-between mt-6">
+          <a href="{{ url_for('administrar_miembros') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            Cancelar
+          </a>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

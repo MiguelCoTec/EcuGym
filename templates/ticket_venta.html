@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket de Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        .totals {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>EcuGym</h1>
+    <h2>Ticket de Venta</h2>
+    <p><strong>Atendido por:</strong> {{ usuario_nombre }}</p>
+    <p><strong>Comentarios:</strong> {{ comentarios }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalle_venta %}
+            <tr>
+                <td>{{ item.nombre_producto }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ item.precio_unitario }}</td>
+                <td>${{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <h3>Total: ${{ total }}</h3>
+    </div>
+</body>
+</html>

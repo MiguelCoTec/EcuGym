@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membresías</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold mb-6 text-center">Membresías Disponibles</h1>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for membresia in membresias %}
+            <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-6 py-4">
+                <h2 class="text-2xl font-bold mb-2">{{ membresia[0] }}</h2>
+                <p class="text-gray-400 mb-2">{{ membresia[1] }}</p>
+                <p class="text-gray-400 mb-2"><strong>Vigencia:</strong> {{ membresia[2] }} días</p>
+                <p class="text-gray-400"><strong>Costo:</strong> ${{ membresia[3] }}</p>
+            </div>
+            {% endfor %}
+            </div>
+            
+            <div class="mt-6 text-center">
+            <a href="/menu" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Volver al menú
+            </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

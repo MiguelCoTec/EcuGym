@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Membresía</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-gray-900 p-8 rounded-lg shadow-md max-w-lg w-full bg-opacity-95">
+            <h2 class="text-2xl font-bold mb-4 text-center">Editar Membresía</h2>
+            <form action="{{ url_for('editar_membresia', membresia_id=membresia_id) }}" method="POST">
+                <div class="mb-4">
+                    <label for="nombre_membresia" class="block mb-2">Nombre de la Membresía:</label>
+                    <input 
+                        type="text" 
+                        id="nombre_membresia" 
+                        name="nombre_membresia" 
+                        value="{{ membresia[0] }}" 
+                        required 
+                        class="w-full p-2 rounded bg-white text-gray-800">
+                </div>
+                <div class="mb-4">
+                    <label for="descripcion" class="block mb-2">Descripción:</label>
+                    <input 
+                        type="text" 
+                        id="descripcion" 
+                        name="descripcion" 
+                        value="{{ membresia[1] }}" 
+                        class="w-full p-2 rounded bg-white text-gray-800">
+                </div>
+                <div class="mb-4">
+                    <label for="vigencia" class="block mb-2">Vigencia (en días):</label>
+                    <input 
+                        type="number" 
+                        id="vigencia" 
+                        name="vigencia" 
+                        value="{{ membresia[2] }}" 
+                        required 
+                        class="w-full p-2 rounded bg-white text-gray-800">
+                </div>
+                <div class="mb-4">
+                    <label for="costo" class="block mb-2">Costo:</label>
+                    <input 
+                        type="number" 
+                        step="0.01"
+                        id="costo" 
+                        name="costo" 
+                        value="{{ membresia[3] }}" 
+                        required 
+                        class="w-full p-2 rounded bg-white text-gray-800">
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Actualizar Membresía</button>
+                </div>
+            </form>
+            <div class="flex justify-end mt-4">
+                <a href="{{ url_for('administrar_membresias') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

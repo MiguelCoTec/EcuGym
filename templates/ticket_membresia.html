@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket de Registro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .ticket-container {
+      width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .ticket-header {
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+    }
+    .ticket-header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #444;
+    }
+    .ticket-body {
+      line-height: 1.6;
+    }
+    .ticket-body p {
+      margin: 8px 0;
+    }
+    .ticket-body .info {
+      font-weight: bold;
+      color: #555;
+    }
+    .ticket-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket-container">
+    <div class="ticket-header">
+      <h1>EcuGym - Registro de Membresía</h1>
+    </div>
+    <div class="ticket-body">
+      <p>Nombre del Miembro: <span class="info">{{ nombre }} {{ apellido }}</span></p>
+      <p>Fecha de Registro: <span class="info">{{ fecha_inicio }}</span></p>
+      <p>Nombre de la Membresía: <span class="info">{{ nombre_membresia }}</span></p>
+      <p>Precio de la Membresía: <span class="info">${{ precio }}</span></p>
+      <p>Fecha de Próximo Pago: <span class="info">{{ fecha_fin }}</span></p>
+    </div>
+    <div class="ticket-footer">
+      <p>Gracias por elegir EcuGym.</p>
+      <p>¡Te esperamos para tu próxima sesión!</p>
+    </div>
+  </div>
+</body>
+</html>

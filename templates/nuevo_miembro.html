@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Miembro</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='fondo.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+    input, select {
+      background-color: #fff; /* Fondo blanco */
+      color: #000; /* Texto negro */
+      border-radius: 8px; /* Bordes redondeados */
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efecto visual al enfocar */
+    }
+  </style>
+</head>
+<body>
+  <div class="flex items-center justify-center h-screen">
+    <div class="bg-gray-800 bg-opacity-95 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-4">Registrar Nuevo Miembro</h2>
+      <form action="/registrar_miembro" method="POST">
+        <div class="mb-4">
+          <label class="block text-gray-400 font-bold mb-2" for="nombre">Nombre</label>
+          <input 
+            class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:shadow-outline" 
+            id="nombre" 
+            type="text" 
+            name="nombre" 
+            placeholder="Nombre" 
+            required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-400 font-bold mb-2" for="apellido">Apellido</label>
+          <input 
+            class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:shadow-outline" 
+            id="apellido" 
+            type="text" 
+            name="apellido" 
+            placeholder="Apellido" 
+            required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-400 font-bold mb-2" for="email">Correo</label>
+          <input 
+            class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:shadow-outline" 
+            id="email" 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-400 font-bold mb-2" for="telefono">Teléfono</label>
+          <input 
+            class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:shadow-outline" 
+            id="telefono" 
+            type="text" 
+            name="telefono" 
+            placeholder="Teléfono">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-400 font-bold mb-2" for="membresia">Membresía</label>
+          <select 
+            class="shadow appearance-none border w-full py-2 px-3 leading-tight focus:shadow-outline" 
+            id="membresia" 
+            name="membresia" 
+            required>
+            {% for membresia in membresias %}
+            <option value="{{ membresia.id }}">{{ membresia.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="flex items-center justify-between">
+          <button 
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+            type="submit">
+            Registrar
+          </button>
+        </div>
+      </form>
+      <div class="flex justify-center mt-4">
+        <a href="{{ url_for('menu') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Regresar al Menú
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
